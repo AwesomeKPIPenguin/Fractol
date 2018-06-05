@@ -1,7 +1,5 @@
 
-#include <mlx.h>
-#include <math.h>
-#include <stdio.h>
+#include "../fractol.h"
 
 void	ft_iter(void *mlx, void *win, int x, int y)
 {
@@ -23,21 +21,22 @@ void	ft_iter(void *mlx, void *win, int x, int y)
 	mlx_pixel_put(mlx, win, x + 500, y + 500, 0xff0000);
 }
 
-int		main(void)
-{
-	void	*mlx;
-	void	*win;
-	int		n;
-	double x = 0.0;
-	double old_x = 0.0;
-	double y = 0.0;
 
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, 1000, 1000, "Pisos");
-	n = -1;
-	for (int i = -500; i < 500; i++)
-		for (int j = -500; j < 500; j++)
-			ft_iter(mlx, win, i, j);
-	mlx_loop(mlx);
+
+int		ft_usage()
+{
+	ft_putstr("Usage: ./fractol mandelbrot/");
 	return (0);
+}
+
+int		main(int ac, char **av)
+{
+	t_env	*env;
+
+	if (ac == 1)
+		return(ft_usage());
+	env = ft_envnew();
+
+	mlx_loop(env->mlx);
+	return (1);
 }

@@ -1,0 +1,49 @@
+
+NAME = fractol
+
+LIBFT_NAME = libft.a
+
+LIBFT_PATH = libft/$(LIBFT_NAME)
+
+LIBMLX_PATH = minilibx_macos
+
+SRCS = src/*.c
+
+OBJ = $(patsubst %.c,%.o,$(wildcard src/*.c))
+
+HEAD = fractol.h
+
+CFLAGS = -Wall -Wextra -Werror
+
+# MacOSX flags
+
+FLAGS = -lmlx -framework OpenGL -framework AppKit
+
+# UNIX / Linux flags
+
+# FLAGS = -lmlx -lXext -lX11
+
+CC = gcc
+
+.PHONY: all clean fclean re
+
+.NOTPARALLEL: all clean fclean re
+
+all: $(NAME)
+
+$(NAME): $(OBJ)
+	@$(MAKE) -C libft
+	@$(MAKE) -C minilibx_macos
+	@$(CC) $(CFLAGS) $(SRCS) -o $(NAME) -L $(LIBMLX_PATH) $(LIBFT_PATH) $(FLAGS)
+
+clean:
+	@/bin/rm -f src/*.o
+	@$(MAKE) clean -C libft
+	@$(MAKE) clean -C minilibx_macos
+
+fclean: clean
+	@/bin/rm -f $(NAME)
+	@$(MAKE) fclean -C libft
+	@$(MAKE) fclean -C minilibx_macos
+
+re: fclean all
