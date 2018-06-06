@@ -15,7 +15,7 @@ t_img	*ft_imgnew(t_env *env)
 
 void	ft_pixel_put_image(t_env *env, int x, int y, int colour)
 {
-	if (point->x < 0 || point->x >= WIN_X || point->y < 0 || point->y >= WIN_Y)
+	if (x < 0 || x >= WIN_X || y < 0 || y >= WIN_Y)
 		return ;
-	*(int *)(env->img->data + (y * WIN_X + x) * img->bpp) = is_colour;
+	*(int *)(env->img->data + (y * WIN_X + x) * env->img->bpp) = colour;
 }
