@@ -12,11 +12,11 @@ static void	ft_move_hook(int key, t_env *env)
 	if (key == ARR_LEFT)
 		env->center_x -= k;
 	else if (key == ARR_UP)
-		env->center_y += k;
+		env->center_y -= k;
 	else if (key == ARR_RIGHT)
 		env->center_x += k;
 	else if (key == ARR_DOWN)
-		env->center_y -= k;
+		env->center_y += k;
 }
 
 int			ft_key_hook(int key, void *p)

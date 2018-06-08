@@ -11,16 +11,21 @@
 
 void	*ft_section_handle(void *arg)
 {
-	t_parg	*parg;
-	int		x[2];
-	int 	y[2];
-	int		y_iter;
+	t_parg		*parg;
+	long long	x[2];
+	long long	y[2];
+	long long	y_iter;
 
 	parg = (t_parg *)arg;
 	x[0] = (parg->section % 4) * (WIN_X / (THREADS / 2)) - 1;
 	y[0] = (parg->section / 4) * (WIN_Y / 2) - 1;
 	x[1] = x[0] + WIN_X / (THREADS / 2) + 1;
 	y[1] = y[0] + WIN_Y / 2 + 1;
+
+	printf("zoom: %Lf, num: %.50Lf;\ncenter x: %lld, center y: %lld;\n",
+		   parg->env->zoom, 1 / parg->env->zoom,
+		   parg->env->center_x, parg->env->center_y);
+
 	while (++x[0] < x[1])
 	{
 		y_iter = y[0];

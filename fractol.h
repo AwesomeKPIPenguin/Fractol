@@ -77,9 +77,9 @@ typedef struct	s_env
 	t_img		*img;
 	long double	zoom;
 	int			i_max;
-	int			(*ft_iter)(struct s_env *env, int x, int y);
-	int			center_x;
-	int			center_y;
+	int			(*ft_iter)(struct s_env *env, long long x, long long y);
+	long long	center_x;
+	long long	center_y;
 }				t_env;
 
 typedef struct	s_parg
@@ -123,7 +123,7 @@ void			ft_render(t_env *env);
 **	mandelbrot.c
 */
 
-int				ft_man_iter(t_env *env, int x, int y);
+int				ft_man_iter(t_env *env, long long x, long long y);
 
 /*
 **	key_hook.c
