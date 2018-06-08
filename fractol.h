@@ -78,7 +78,8 @@ typedef struct	s_env
 	long double	zoom;
 	int			i_max;
 	int			(*ft_iter)(struct s_env *env, int x, int y);
-
+	int			center_x;
+	int			center_y;
 }				t_env;
 
 typedef struct	s_parg
@@ -123,5 +124,17 @@ void			ft_render(t_env *env);
 */
 
 int				ft_man_iter(t_env *env, int x, int y);
+
+/*
+**	key_hook.c
+*/
+
+int				ft_key_hook(int key, void *p);
+
+/*
+**	mouse_hook.c
+*/
+
+int				ft_mouse_hook(int mouse, int x, int y, void *p);
 
 #endif

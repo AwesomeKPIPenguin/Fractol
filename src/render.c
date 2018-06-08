@@ -27,7 +27,7 @@ void	*ft_section_handle(void *arg)
 		while (++y_iter < y[1])
 			ft_pixel_put_image(parg->env,
 				x[0], y_iter, parg->env->ft_iter(parg->env,
-					x[0] - WIN_X_CENTER - 250, y_iter - WIN_Y_CENTER));
+					x[0] - parg->env->center_x, y_iter - parg->env->center_y));
 	}
 	return (NULL);
 }
@@ -38,7 +38,6 @@ void	ft_render(t_env *env)
 	t_parg		pargs[THREADS];
 	int			i;
 
-	env->zoom = 300.0;
 	env->i_max = 100;
 
 	i = -1;

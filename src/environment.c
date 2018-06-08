@@ -10,5 +10,8 @@ t_env	*ft_envnew()
 	env->win = mlx_new_window(env->mlx,
 		WIN_X, WIN_Y, "Fractol - domelche");
 	env->img = ft_imgnew(env);
+	env->center_x = WIN_X_CENTER;
+	env->center_y = WIN_Y_CENTER;
+	env->zoom = 300.0;
 	return (env);
 }

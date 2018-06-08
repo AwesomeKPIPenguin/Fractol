@@ -19,6 +19,8 @@ int		main(int ac, char **av)
 	else
 		return (ft_usage());
 	ft_render(env);
+	mlx_key_hook(env->win, ft_key_hook, (void *)env);
+	mlx_mouse_hook(env->win, ft_mouse_hook, (void *)env);
 	mlx_loop(env->mlx);
 	return (1);
 }
