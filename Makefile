@@ -5,7 +5,9 @@ LIBFT_NAME = libft.a
 
 LIBFT_PATH = libft/$(LIBFT_NAME)
 
-LIBMLX_PATH = minilibx_macos
+LIBMLX_NAME = libmlx.a
+
+LIBMLX_PATH = minilibx/$(LIBMLX_NAME)
 
 SRCS = src/*.c
 
@@ -33,17 +35,17 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C libft
-	@$(MAKE) -C minilibx_macos
-	@$(CC) $(CFLAGS) $(SRCS) -o $(NAME) -L $(LIBMLX_PATH) $(LIBFT_PATH) $(FLAGS)
+#	@$(MAKE) -C minilibx
+	@$(CC) $(CFLAGS) $(SRCS) -o $(NAME) $(LIBFT_PATH) $(FLAGS)
 
 clean:
 	@/bin/rm -f src/*.o
 	@$(MAKE) clean -C libft
-	@$(MAKE) clean -C minilibx_macos
+#	@$(MAKE) clean -C minilibx
 
 fclean: clean
 	@/bin/rm -f $(NAME)
 	@$(MAKE) fclean -C libft
-	@$(MAKE) fclean -C minilibx_macos
+#	@$(MAKE) fclean -C minilibx
 
 re: fclean all

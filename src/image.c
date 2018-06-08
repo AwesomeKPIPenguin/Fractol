@@ -17,5 +17,6 @@ void	ft_pixel_put_image(t_env *env, int x, int y, int colour)
 {
 	if (x < 0 || x >= WIN_X || y < 0 || y >= WIN_Y)
 		return ;
-	*(int *)(env->img->data + (y * WIN_X + x) * env->img->bpp) = colour;
+	*(int *)(env->img->data + (y * WIN_X + x) * env->img->bpp) =
+		mlx_get_color_value(env->mlx, colour);
 }

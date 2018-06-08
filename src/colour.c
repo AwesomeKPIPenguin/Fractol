@@ -6,5 +6,7 @@
 
 int		ft_getcolour(int i, int i_max)
 {
-	return ((int)(i * (double)BLACK / (double)i_max));
+	int		colour = (int)((double)i * (double)GREEN / (double)i_max);
+
+	return (colour);
 }

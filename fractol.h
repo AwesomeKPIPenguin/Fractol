@@ -9,6 +9,10 @@
 # include <pthread.h>
 # include "libft/libft.h"
 
+// !!! REMOVE ME !!!
+# include <stdio.h>
+// !!! !!! ! !!! !!!
+
 # define ESC			0X35
 # define ARR_UP			0X7E
 # define ARR_DOWN		0X7D
