@@ -12,28 +12,26 @@
 void	*ft_section_handle(void *arg)
 {
 	t_parg		*parg;
+	t_ftl		*ftl;
 	long long	x[2];
 	long long	y[2];
 	long long	y_iter;
 
 	parg = (t_parg *)arg;
+	ftl = (t_ftl *)ft_smemalloc(sizeof(t_ftl), "ft_section_handle");
 	x[0] = (parg->section % 4) * (WIN_X / (THREADS / 2)) - 1;
 	y[0] = (parg->section / 4) * (WIN_Y / 2) - 1;
 	x[1] = x[0] + WIN_X / (THREADS / 2) + 1;
 	y[1] = y[0] + WIN_Y / 2 + 1;
-
-	printf("zoom: %Lf, num: %.50Lf;\ncenter x: %lld, center y: %lld;\n",
-		   parg->env->zoom, 1 / parg->env->zoom,
-		   parg->env->center_x, parg->env->center_y);
-
 	while (++x[0] < x[1])
 	{
 		y_iter = y[0];
 		while (++y_iter < y[1])
-			ft_pixel_put_image(parg->env,
-				x[0], y_iter, parg->env->ft_iter(parg->env,
+			ft_pixel_put_image(parg->env, x[0], y_iter,
+				parg->env->ft_iter(parg->env, ftl,
 					x[0] - parg->env->center_x, y_iter - parg->env->center_y));
 	}
+	free(ftl);
 	return (NULL);
 }
 

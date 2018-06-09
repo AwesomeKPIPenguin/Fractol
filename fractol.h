@@ -28,6 +28,9 @@
 # define MINUS			0X4E
 # define C				0X08
 
+# define MOTION_MASK	(1L << 6)
+# define MOTION_NOTIFY	6
+
 # define WIN_X			1000
 # define WIN_Y			700
 # define WIN_X_CENTER	(WIN_X / 2)
@@ -77,9 +80,11 @@ typedef struct	s_env
 	t_img		*img;
 	long double	zoom;
 	int			i_max;
-	int			(*ft_iter)(struct s_env *env, long long x, long long y);
+	int			(*ft_iter)(struct s_env *, t_ftl *, long long, long long);
 	long long	center_x;
 	long long	center_y;
+	long long	option_x;
+	long long	option_y;
 }				t_env;
 
 typedef struct	s_parg
@@ -111,7 +116,7 @@ t_parg			ft_pargnew(t_env *env, int section);
 **	colour.c
 */
 
-int				ft_getcolour(int i, int i_max);
+int				ft_getcolour(double i, int i_max);
 
 /*
 **	render.c
@@ -123,7 +128,19 @@ void			ft_render(t_env *env);
 **	mandelbrot.c
 */
 
-int				ft_man_iter(t_env *env, long long x, long long y);
+int				ft_man_iter(t_env *env, t_ftl *ftl, long long x, long long y);
+
+/*
+**	mandelbrot.c
+*/
+
+int				ft_jul_iter(t_env *env, t_ftl *ftl, long long x, long long y);
+
+/*
+**	hook.c
+*/
+
+int				ft_mouse_move_hook(int x, int y, void *a);
 
 /*
 **	key_hook.c

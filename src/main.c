@@ -16,11 +16,15 @@ int		main(int ac, char **av)
 	env = ft_envnew();
 	if (!ft_strcmp(av[1], "mandelbrot"))
 		env->ft_iter = ft_man_iter;
+	else if (!ft_strcmp(av[1], "julia"))
+		env->ft_iter = ft_jul_iter;
 	else
 		return (ft_usage());
 	ft_render(env);
 	mlx_key_hook(env->win, ft_key_hook, (void *)env);
 	mlx_mouse_hook(env->win, ft_mouse_hook, (void *)env);
+	mlx_hook(env->win, MOTION_NOTIFY, MOTION_MASK,
+		ft_mouse_move_hook, (void *)env);
 	mlx_loop(env->mlx);
 	return (1);
 }

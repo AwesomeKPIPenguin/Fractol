@@ -13,5 +13,7 @@ t_env	*ft_envnew()
 	env->center_x = WIN_X_CENTER;
 	env->center_y = WIN_Y_CENTER;
 	env->zoom = 300.0;
+	env->option_x = env->center_x;
+	env->option_y = env->center_y;
 	return (env);
 }
