@@ -27,3 +27,4 @@ Available manipulations:
 * Scaling - **mouse wheel**
 * Change main colour - **'C'** key
 * Reset scale and position - **'R'** key
+* Exit - **'Esc'** key
