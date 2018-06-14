@@ -1,6 +1,14 @@
-//
-// Created by Dmytro OMELCHENKO on 6/8/18.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mouse_hook.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: domelche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/14 16:57:57 by domelche          #+#    #+#             */
+/*   Updated: 2018/06/14 16:57:59 by domelche         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../fractol.h"
 
@@ -17,7 +25,7 @@ int			ft_mouse_hook(int mouse, int x, int y, void *p)
 	if (mouse == 4)
 		zoom = 1.3;
 	else
-		zoom = 1.0 / 1.3;
+		zoom = (env->zoom > 1) ? 1.0 / 1.3 : 1;
 	move_x = (long long)((double)(x - env->center_x) * (1 - zoom));
 	move_y = (long long)((double)(y - env->center_y) * (1 - zoom));
 	env->zoom *= zoom;

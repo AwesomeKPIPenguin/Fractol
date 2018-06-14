@@ -1,35 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: domelche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/14 16:58:34 by domelche          #+#    #+#             */
+/*   Updated: 2018/06/14 16:58:38 by domelche         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef FRACTOL_H
 
 # define FRACTOL_H
 
-# include <mlx.h>
 # include <math.h>
 # include <limits.h>
 # include <pthread.h>
 # include "libft/libft.h"
-
-// !!! REMOVE ME !!!
-# include <stdio.h>
-// !!! !!! ! !!! !!!
+# include "minilibx/mlx.h"
 
 # define ESC			0X35
 # define ARR_UP			0X7E
 # define ARR_DOWN		0X7D
 # define ARR_RIGHT		0X7C
 # define ARR_LEFT		0X7B
-# define ARR_LESS		0X2B
-# define ARR_MORE		0X2F
-# define W				0X0D
-# define A				0X00
-# define S				0X01
-# define D				0X02
+# define R				0X0F
 # define PLUS			0X45
 # define MINUS			0X4E
 # define C				0X08
 
 # define MOTION_MASK	(1L << 6)
 # define MOTION_NOTIFY	6
+# define CLOSE_MASK		0L
+# define CLOSE_NOTIFY	17
 
 # define WIN_X			1000
 # define WIN_Y			700
@@ -39,119 +43,124 @@
 # define THREADS		8
 
 # define BLACK			0X000000
-# define WHITE			0XFFFFFF
-# define DARK_RED		0X800000
-# define RED			0XFF0000
-# define LIGHT_RED		0XFF8080
-# define RED_GREEN		0XFFFF00
-# define DARK_GREEN		0X008000
-# define GREEN			0X00FF00
-# define LIGHT_GREEN	0X80FF80
-# define GREEN_BLUE 	0X00FFFF
-# define DARK_BLUE		0X000080
-# define BLUE			0X0000FF
-# define LIGHT_BLUE		0X8080FF
-# define RED_BLUE		0XFF00FF
 
-typedef struct	s_ftl
+typedef union		u_color
 {
-	long double	c_r;
-	long double	c_i;
-	long double	z_r;
-	long double	z_i;
-	long double	z_tmp;
-}				t_ftl;
+	int				val;
+	unsigned char	argb[4];
+}					t_color;
 
-typedef struct	s_img
+typedef struct		s_ftl
 {
-	void		*ptr;
-	int			width;
-	int			height;
-	char		*data;
-	int			bpp;
-	int			size_line;
-	int			endian;
-}				t_img;
+	long double		c_r;
+	long double		c_i;
+	long double		z_r;
+	long double		z_i;
+	long double		z_tmp;
+}					t_ftl;
 
-typedef struct	s_env
+typedef struct		s_img
 {
-	void		*mlx;
-	void		*win;
-	t_img		*img;
-	long double	zoom;
-	int			i_max;
-	int			(*ft_iter)(struct s_env *, t_ftl *, long long, long long);
-	long long	center_x;
-	long long	center_y;
-	long long	option_x;
-	long long	option_y;
-}				t_env;
+	void			*ptr;
+	int				width;
+	int				height;
+	char			*data;
+	int				bpp;
+	int				size_line;
+	int				endian;
+}					t_img;
 
-typedef struct	s_parg
+typedef struct		s_env
 {
-	int			section;
-	t_env		*env;
-}				t_parg;
+	void			*mlx;
+	void			*win;
+	t_img			*img;
+	long double		zoom;
+	int				i_max;
+	int				clr_mode;
+	int				(*ft_iter)(struct s_env *, t_ftl *, long long, long long);
+	long long		center_x;
+	long long		center_y;
+	long long		option_x;
+	long long		option_y;
+}					t_env;
+
+typedef struct		s_parg
+{
+	int				section;
+	t_env			*env;
+}					t_parg;
 
 /*
 **	image.c
 */
 
-t_img			*ft_imgnew(t_env *env);
-void			ft_pixel_put_image(t_env *env, int x, int y, int colour);
+t_img				*ft_imgnew(t_env *env);
+void				ft_pixel_put_image(t_env *env, int x, int y, int color);
 
 /*
 **	environment.c
 */
 
-t_env			*ft_envnew();
+t_env				*ft_envnew();
 
 /*
-**	parg.c
+**	color.c
 */
 
-t_parg			ft_pargnew(t_env *env, int section);
-
-/*
-**	colour.c
-*/
-
-int				ft_getcolour(double i, int i_max);
+int					ft_getcolor(long double i, int color_mode);
 
 /*
 **	render.c
 */
 
-void			ft_render(t_env *env);
+void				ft_render(t_env *env);
 
 /*
 **	mandelbrot.c
 */
 
-int				ft_man_iter(t_env *env, t_ftl *ftl, long long x, long long y);
+int					ft_man_iter(t_env *env, t_ftl *ftl,
+								long long x, long long y);
 
 /*
-**	mandelbrot.c
+**	julia.c
 */
 
-int				ft_jul_iter(t_env *env, t_ftl *ftl, long long x, long long y);
+int					ft_jul_iter(t_env *env, t_ftl *ftl,
+								long long x, long long y);
+
+/*
+**	newton.c
+*/
+
+int					ft_new_iter(t_env *env, t_ftl *ftl,
+								long long x, long long y);
+
+/*
+**	burning_ship.c
+*/
+
+int					ft_bur_iter(t_env *env, t_ftl *ftl,
+								long long x, long long y);
 
 /*
 **	hook.c
 */
 
-int				ft_mouse_move_hook(int x, int y, void *a);
+int					ft_mouse_move_hook(int x, int y, void *a);
+int					ft_close_hook(int x, int y, void *a);
 
 /*
 **	key_hook.c
 */
 
-int				ft_key_hook(int key, void *p);
+int					ft_key_hook(int key, void *p);
 
 /*
 **	mouse_hook.c
 */
 
-int				ft_mouse_hook(int mouse, int x, int y, void *p);
+int					ft_mouse_hook(int mouse, int x, int y, void *p);
 
 #endif

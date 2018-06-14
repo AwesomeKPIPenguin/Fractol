@@ -1,6 +1,14 @@
-//
-// Created by Dimon on 06.06.2018.
-//
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: domelche <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/06/14 16:58:22 by domelche          #+#    #+#             */
+/*   Updated: 2018/06/14 16:58:24 by domelche         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../fractol.h"
 
@@ -40,8 +48,6 @@ void	ft_render(t_env *env)
 	pthread_t	threads[THREADS];
 	t_parg		pargs[THREADS];
 	int			i;
-
-	env->i_max = 100;
 
 	i = -1;
 	while (++i < THREADS)
